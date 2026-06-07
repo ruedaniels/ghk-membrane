@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GHK Membrane Potential</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h1>GHK Membrane Potential</h1>
+        <p class="subtitle">Adjust ion concentrations inside and outside the membrane. Permeabilities are fixed at physiological values. Try to reach −55 mV.</p>
+      </header>
+
+      <canvas id="membrane" height="215"></canvas>
+
+      <div class="metrics">
+        <div class="metric"><span class="metric-val" id="m-vm">—</span><span class="metric-lbl">Vm (mV)</span></div>
+        <div class="metric"><span class="metric-val" id="m-ek">—</span><span class="metric-lbl">E_K (mV)</span></div>
+        <div class="metric"><span class="metric-val" id="m-ena">—</span><span class="metric-lbl">E_Na (mV)</span></div>
+      </div>
+
+      <div class="target-row">
+        <span class="target-text">Target: <strong>−55 mV</strong> — adjust K⁺ and Na⁺ concentrations to reach it</span>
+        <span class="target-pill" id="targetPill">not reached</span>
+      </div>
+
+      <div class="controls-card">
+        <div class="section-label">Extracellular</div>
+        <div class="ctrl-row">
+          <span class="ion-pip" style="background:#c9bfe8"></span>
+          <span class="ctrl-label">K⁺ outside (mM)</span>
+          <input type="range" id="Ko" min="1" max="20" step="0.5" value="5">
+          <span class="ctrl-val" id="vKo">5.0</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ion-pip" style="background:#b8e8df"></span>
+          <span class="ctrl-label">Na⁺ outside (mM)</span>
+          <input type="range" id="Nao" min="50" max="200" step="1" value="145">
+          <span class="ctrl-val" id="vNao">145</span>
+        </div>
+      </div>
+
+      <div class="controls-card">
+        <div class="section-label">Intracellular</div>
+        <div class="ctrl-row">
+          <span class="ion-pip" style="background:#c9bfe8"></span>
+          <span class="ctrl-label">K⁺ inside (mM)</span>
+          <input type="range" id="Ki" min="50" max="150" step="1" value="140">
+          <span class="ctrl-val" id="vKi">140</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ion-pip" style="background:#b8e8df"></span>
+          <span class="ctrl-label">Na⁺ inside (mM)</span>
+          <input type="range" id="Nai" min="1" max="30" step="0.5" value="12">
+          <span class="ctrl-val" id="vNai">12.0</span>
+        </div>
+      </div>
+
+      <div class="eq-card">
+        <div class="eq-label">Goldman – Hodgkin – Katz Equation</div>
+        <div class="eq-text">
+          Vm = (RT/F) · ln[ (P_K·[K]o + P_Na·[Na]o + P_Cl·[Cl]i) / (P_K·[K]i + P_Na·[Na]i + P_Cl·[Cl]o) ]<br>
+          P_K = 1 &nbsp;|&nbsp; P_Na = 0.04 &nbsp;|&nbsp; P_Cl = 0.45 &nbsp;|&nbsp; Cl⁻ locked: out 140 mM / in 10 mM
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button onclick="resetAll()">Reset to defaults</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
